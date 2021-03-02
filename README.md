@@ -80,20 +80,24 @@ $ rake db:create_migration NAME=create_posts
 $ rake db:create_migration NAME=create_comments
 ```
 
-# 9. model files: ./app/models/`user.rb` `post.rb` `comment.rb` ...
+# 9. model files: ./app/models/`user.rb` `post.rb` `comment.rb` `country.rb` ...
 
 # 10. $ `rake db:migrate`
 
 # 11. ./db/`seeds.rb`
 ```ruby
-User.create(name: "Person_01")
-User.create(name: "Person_02")
-User.create(name: "Person_03")
+User.create(name: "Person_01", email: "person_01@users.com", password: "123")
+User.create(name: "Person_02", email: "person_02@users.com", password: "123")
+User.create(name: "Person_03", email: "person_03@users.com", password: "123")
 
-Post.create(title: "Post_01", content: "Content_01", author_id: 1)
-Post.create(title: "Post_02", content: "Content_02", author_id: 2)
-Post.create(title: "Post_03", content: "Content_03", author_id: 3)
-Post.create(title: "Post_04", content: "Content_04", author_id: 1)
+# Country.create(name: "Korea South", url: "http://www.geognos.com/geo/en/cc/kr.html")
+# Country.create(name: "United States", url: "http://www.geognos.com/geo/en/cc/us.html")
+
+Post.create(title: "Post_01", content: "01_This is the Content of the post on Seoul, South Korea.", author_id: 1, country_id: 117)
+Post.create(title: "Post_02", content: "02_This is the Content of the post on New York, United States.", author_id: 2, country_id: 230)
+Post.create(title: "Post_03", content: "03_This is the Content of the post on Ilsan, South Korea.", author_id: 3, country_id: 117)
+Post.create(title: "Post_04", content: "04_This is the Content of the post on Dallas, United States.", author_id: 1, country_id: 230)
+Post.create(title: "Post_05", content: "05_This is the Content of the post on Little Rock, United States.", author_id: 2, country_id: 230)
 
 Comment.creat(content: "Comment_01", post_id: 1, commenter_id: 2)
 Comment.creat(content: "Comment_02", post_id: 1, commenter_id: 1)
@@ -104,6 +108,7 @@ Comment.creat(content: "Comment_06", post_id: 3, commenter_id: 2)
 Comment.creat(content: "Comment_07", post_id: 4, commenter_id: 3)
 Comment.creat(content: "Comment_08", post_id: 1, commenter_id: 2)
 Comment.creat(content: "Comment_09", post_id: 1, commenter_id: 1)
+Comment.creat(content: "Comment_10", post_id: 5, commenter_id: 1)
 ```
 
 # 12. $ `rake db:seed`

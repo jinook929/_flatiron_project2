@@ -10,6 +10,7 @@ gem 'sinatra'
 gem 'activerecord', '~> 5.2.4.5', :require => 'active_record'
 gem 'sinatra-activerecord'
 gem 'sqlite3'
+gem 'bcrypt'
 gem 'rack-flash3'
 gem 'shotgun'
 
