@@ -77,6 +77,7 @@ require_all 'app'
 ```ruby
 $ rake db:create_migration NAME=create_users
 $ rake db:create_migration NAME=create_posts
+$ rake db:create_migration NAME=create_countries
 $ rake db:create_migration NAME=create_comments
 ```
 
@@ -86,18 +87,18 @@ $ rake db:create_migration NAME=create_comments
 
 # 11. ./db/`seeds.rb`
 ```ruby
-User.create(name: "Person_01", email: "person_01@users.com", password: "123")
-User.create(name: "Person_02", email: "person_02@users.com", password: "123")
-User.create(name: "Person_03", email: "person_03@users.com", password: "123")
+User.create(username: "Person_01", email: "person_01@users.com", password: "123")
+User.create(username: "Person_02", email: "person_02@users.com", password: "123")
+User.create(username: "Person_03", email: "person_03@users.com", password: "123")
 
 # Country.create(name: "Korea South", url: "http://www.geognos.com/geo/en/cc/kr.html")
 # Country.create(name: "United States", url: "http://www.geognos.com/geo/en/cc/us.html")
 
-Post.create(title: "Post_01", content: "01_This is the Content of the post on Seoul, South Korea.", author_id: 1, country_id: 117)
-Post.create(title: "Post_02", content: "02_This is the Content of the post on New York, United States.", author_id: 2, country_id: 230)
-Post.create(title: "Post_03", content: "03_This is the Content of the post on Ilsan, South Korea.", author_id: 3, country_id: 117)
-Post.create(title: "Post_04", content: "04_This is the Content of the post on Dallas, United States.", author_id: 1, country_id: 230)
-Post.create(title: "Post_05", content: "05_This is the Content of the post on Little Rock, United States.", author_id: 2, country_id: 230)
+Post.create(title: "Post_01", content: "01_This is the Content of the post on Seoul, South Korea.", user_id: 1, country_id: 117)
+Post.create(title: "Post_02", content: "02_This is the Content of the post on New York, United States.", user_id: 2, country_id: 230)
+Post.create(title: "Post_03", content: "03_This is the Content of the post on Ilsan, South Korea.", user_id: 3, country_id: 117)
+Post.create(title: "Post_04", content: "04_This is the Content of the post on Dallas, United States.", user_id: 1, country_id: 230)
+Post.create(title: "Post_05", content: "05_This is the Content of the post on Little Rock, United States.", user_id: 2, country_id: 230)
 
 Comment.creat(content: "Comment_01", post_id: 1, commenter_id: 2)
 Comment.creat(content: "Comment_02", post_id: 1, commenter_id: 1)

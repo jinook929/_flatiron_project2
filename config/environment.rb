@@ -1,5 +1,5 @@
 require 'bundler'
-bundler.require
+Bundler.require
 
 require_all 'app'
 
