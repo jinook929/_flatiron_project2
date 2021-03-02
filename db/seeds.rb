@@ -1,6 +1,6 @@
-User.create(username: "Person_01", email: "person_01@users.com", password: "123")
-User.create(username: "Person_02", email: "person_02@users.com", password: "123")
-User.create(username: "Person_03", email: "person_03@users.com", password: "123")
+# User.create(username: "Person_01", email: "person_01@users.com", password: "123")
+# User.create(username: "Person_02", email: "person_02@users.com", password: "123")
+# User.create(username: "Person_03", email: "person_03@users.com", password: "123")
 
 # Country.create(name: "Korea South", url: "http://www.geognos.com/geo/en/cc/kr.html")
 # Country.create(name: "United States", url: "http://www.geognos.com/geo/en/cc/us.html")
