@@ -5,6 +5,7 @@ class PostController < AppController
 
   get '/posts' do
     if not logged_in?
+      flash[:message] = "You have to log in first."
       redirect "login"
     else
       @posts = Post.all.sort_by {|post| post.created_at}.reverse
@@ -22,6 +23,7 @@ class PostController < AppController
 
   get '/posts/new' do
     if not logged_in?
+      flash[:message] = "You have to log in first."
       redirect "/login"
     else
       @countries = Country.all
@@ -31,10 +33,12 @@ class PostController < AppController
 
   post '/posts' do
     if not logged_in?
+      flash[:message] = "You have to log in first."
       redirect "/login"
     else
       params[:user_id] = current_user.id
       if params[:youtube].include?("youtu") && Post.create(params).id
+        flash[:message] = "Vlog successfully created."
         redirect "/posts/#{Post.last.id}"
       else
         flash[:message] = "Fill in the boxes. [ especially <strong>Youtube Address</strong> ]"
@@ -45,6 +49,7 @@ class PostController < AppController
 
   get '/posts/:id' do
     @post = Post.find_by_id(params[:id])
+    @comments = @post.comments.reverse
     erb :'posts/show'
   end
 
@@ -54,30 +59,37 @@ class PostController < AppController
       @countries = Country.all
       erb :'posts/edit'
     else
-      redirect "/login"
+      flash[:message] = "Only the owner can edit this vlog."
+      redirect "/posts/#{params[:id]}"
     end
   end
 
   patch '/posts/:id' do
-    if owner?(Post.find_by_id(params[:id]).user) || admin?
+    user = Post.find_by_id(params[:id]).user
+    if owner?(user) || admin?
       params.delete("_method")
-      params[:user_id] = params[:id]
+      params[:user_id] = user.id
       @post = Post.update(params[:id], params)
       if @post
+        flash[:message] = "Vlog successfully edited."
         redirect "/posts/#{@post.id}"
       else
+        flash[:message] = "Editing failed..."
         redirect "/posts/new"
       end
     else
-      redirect "/login"
+      flash[:message] = "Only the owner can edit this vlog."
+      redirect "/posts/#{params[:id]}"
     end
   end
 
   delete '/posts/:id' do
     if owner?(Post.find_by_id(params[:id]).user) || super?
       Post.find_by_id(params[:id]).destroy
+      flash[:message] = "Vlog successfully deleted."
       redirect "/posts"
     else
+      flash[:message] = "Only the owner can delete this vlog."
       redirect "/posts/#{params[:id]}"
     end
   end

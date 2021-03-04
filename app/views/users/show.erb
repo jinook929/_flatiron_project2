@@ -5,41 +5,51 @@
     <h2 class="card-subtitle mb-2 text-muted">Username: <%= @user.username %></h2>
     <h3 class="card-text"><%= @user.email %></h3>
 
-    <% if admin? %>
+    <% if admin? %><!--check admin-->
       <h3>Admin? <% if @user.admin %> [ Yes ] <% else %> [ No ]<% end %></h3>
       <h3>SuperAdmin?  <% if @user.super %> [ Yes ] <% else %> [ No ]<% end %></h3>
       <div>
         <a href="/users">Users List</a>
-        <% if super? %>
+        <% if super? %><!--check super-->
         <span> | </span>
         <a href="/users/<%= @user.id %>/edit">Edit the user info</a>
       </div>
       <div class="mt-3">
-        <% if not @user.super %>
+        <% if not @user.super %><!--check super-self-->
         <form action="/users/<%= @user.id %>" method="POST">
           <input type="hidden" name="_method" value="delete">
           <button type="submit" class="btn btn-sm btn-warning">Delet This User</button>
         </form>
-        <% end %>
+        <% end %><!--check super-self-->
       </div>
-      <% else %>
+      <% else %><!--check super-->
       </div>
-      <% end %>
+      <% end %><!--check super-->
+    <% end %><!--check admin-->
+
+    <% if current_user.id == @user.id %>
+      <a href="/users/<%= @user.id %>/edit">Edit the user info</a>
     <% end %>
+
   </div>
 </div>
 
-  <h2 class="text-center mt-5 mb-5">Posted Countries</h2>
+  <h2 class="text-center mt-5 mb-5">Countries You Posted For</h2>
   <% @user.countries.uniq.each do |country| %>
     <h4 class="text-center">Name: <a href="/countries/<%= country.id %>"><%= country.name %></a></h4>
     <p class="text-center">(Click the country name to see all the vlogs list about this country.)</p>
     <p class="text-center mb-5"><a href="<%= country.url %>" target="_blank">Click Here for Country Info</a></p>
   <% end %>
 
+  <h2 class="text-center mt-5 mb-5">Posts You Commented</h2>
+  <% @user.commented_posts.uniq.each do |post| %>
+    <h4 class="text-center mb-3">Title: <a href="/posts/<%= post.id %>"><%= post.title %></a></h4>
+  <% end %>
+
 <% else %>
   <h1 class="text-center">Please log in first.</h1>
   <a href="/login">Log In</a>
 <% end %>
-<div class="text-center mb-5">
+<h2 class="text-center mt-5 mb-5">
   <a class="text-center" href="/users/<%= @user.id %>/posts"><strong>User's All Vlogs</strong></a>
-</div>
+</h2>

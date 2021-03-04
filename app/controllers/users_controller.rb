@@ -1,10 +1,18 @@
+require 'rack-flash'
+
 class UserController < AppController
+  use Rack::Flash
+
   get '/users' do
     if admin?
       @users = User.all
       erb :'users/index'
     else
-      redirect "/"
+      flash[:message] = "You are not permitted to view users list."
+      if logged_in?
+        redirect "/posts"
+      end
+      redirect "/login"
     end
   end
 
@@ -13,7 +21,11 @@ class UserController < AppController
       @user = User.find_by_id(params[:id])
       erb :'users/show'
     else
-      redirect "/"
+      flash[:message] = "You are not allowed to view other users' info."
+      if logged_in?
+        redirect "/posts"
+      end
+      redirect "/login"
     end
   end
 
@@ -24,17 +36,20 @@ class UserController < AppController
         @posts = Post.all.select {|post|
           post.user == @user
         }
+        erb :'users/user_posts'
       else
+        flash[:message] = "Something went wrong..."
         redirect "/users/#{@user.id}"
       end
-      erb :'users/user_posts'
     else
+      flash[:message] = "You have to log in first."
       redirect "/login"
     end
   end
 
   get '/signup' do
     if logged_in?
+      flash[:message] = "Hello, #{current_user.username.upcase}"
       redirect "/posts"
     end
     erb :'users/signup'
@@ -52,42 +67,51 @@ class UserController < AppController
 
     if @user.id
       session[:user_id] = @user.id
+      flash[:message] = "Account successfully created!!!"
       redirect "/users/#{@user.id}"
     else
+      flash[:message] = "Could not create your account. Please try again."
       redirect "/signup"
     end
   end
 
   get '/users/:id/edit' do
-    if logged_in? && super?
+    if logged_in? && super? || current_user.id == params[:id].to_i
       @user = User.find_by_id(params[:id])
       erb :'users/edit'
     else
+      flash[:message] = "Log in first~"
       redirect "/login"
     end
   end
 
   patch '/users/:id' do
-    if logged_in? && super?
+    if logged_in? && super? || current_user.id == params[:id].to_i
       params.delete("_method")
       User.update(params[:id], params)
+      flash[:message] = "User info successfully updated!"
       redirect "/users/#{params[:id]}"
     else
+      flash[:message] = "You are not allowed to edit this user info."
       redirect "/users"
     end
   end
 
   delete '/users/:id' do
     if logged_in? && super?
-      User.find_by_id(params[:id]).destroy
+      user = User.find_by_id(params[:id])
+      flash[:message] = "The account of #{user.username.upcase} deleted!"
+      user.destroy
       redirect "/users"
     else
+      flash[:message] = "Could not delete the account..."
       redirect "/users/#{params[:id]}"
     end
   end
 
   get '/login' do
     if logged_in?
+      flash[:message] = "Hello, #{current_user.username.upcase}"
       redirect "/posts"
     else
       erb :'users/login'
@@ -98,8 +122,10 @@ class UserController < AppController
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
+      flash[:message] = "Hello, #{current_user.username.upcase}"
       redirect '/posts'
     else
+      flash[:message] = "Log in failed... Try again."
       redirect '/login'
     end
   end
@@ -109,6 +135,7 @@ class UserController < AppController
       session.clear
       redirect '/'
     else
+      flash[:message] = "Are you logged in?"
       redirect "/login"
     end
   end
