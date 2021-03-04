@@ -35,7 +35,7 @@ class UserController < AppController
       if @user
         @posts = Post.all.select {|post|
           post.user == @user
-        }
+        }.reverse
         erb :'users/user_posts'
       else
         flash[:message] = "Something went wrong..."

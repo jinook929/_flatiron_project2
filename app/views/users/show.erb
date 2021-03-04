@@ -42,7 +42,7 @@
   <% end %>
 
   <h2 class="text-center mt-5 mb-5">Posts You Commented</h2>
-  <% @user.commented_posts.uniq.each do |post| %>
+  <% @user.commented_posts.uniq.reverse.each do |post| %>
     <h4 class="text-center mb-3">Title: <a href="/posts/<%= post.id %>"><%= post.title %></a></h4>
   <% end %>
 
