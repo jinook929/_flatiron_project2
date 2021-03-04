@@ -1,0 +1,53 @@
+.landing h1{
+  color: indianred;
+  text-decoration: none;
+} 
+
+*{margin:0;padding:0;}
+
+ul,li{list-style:none;margin:0;padding:0;}
+.slide{height:89.5vh;overflow:hidden;}
+.slide ul{width:calc(100% * 4);display:flex;animation:slide 20s infinite;}
+.slide li{
+  width:calc(100% / 4);
+  height:92vh;
+}
+.slide li:nth-child(1){
+  background:#ffa;
+  background: url("https://source.unsplash.com/-e6Xu27_T50/900x600/");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover;
+}
+.slide li:nth-child(2){
+  background:#faa;
+  background: url("https://source.unsplash.com/wh-7GeXxItI/900x600/");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover;
+}
+.slide li:nth-child(3){
+  background:#afa;
+  background: url("https://source.unsplash.com/3dPHz0i70RI/900x600/");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover;
+}
+.slide li:nth-child(4){
+  background:#aaf;
+  background: url("https://source.unsplash.com/RM_cZwVPuCk/900x600/");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover;
+}
+@keyframes slide {
+  0% {margin-left:0;} 
+  22% {margin-left:0;}
+  25% {margin-left:-100%;}
+  47% {margin-left:-100%;}
+  50% {margin-left:-200%;}
+  72% {margin-left:-200%;}
+  75% {margin-left:-300%;}
+  97% {margin-left:-300%;}
+  100% {margin-left:0;}
+}

@@ -1,0 +1,38 @@
+<h1 class="mt-5 mb-3 text-center">Edit Your Vlog.</h1>
+
+<div class="text-center">
+  <a href="/posts/<%= @post.id %>"><button class="btn btn-secondary btn-lg">Back to the Vlog</button></a>
+</div>
+
+<div class="container ml-5 mr-5">
+  <form action="/posts/<%= @post.id %>" method="POST">
+    <input type="hidden" name="_method" value="patch">
+    <div class="mb-3">
+      <label for="title" class="form-label">Where?</label>
+      <input type="text" class="form-control" name="title" id="title" value="<%= @post.title %>">
+    </div>
+
+    <div class="mb-3">
+      <label for="youtube" class="form-label">Youtube Address</label>
+      <input type="youtube" class="form-control" name="youtube" id="youtube" placeholder="e.g. https://www.youtube.com/watch?v=h_xjfqrFl7o" value="<%= @post.youtube %>">
+    </div>
+
+    <div class="form-floating">
+      <textarea class="form-control" name="content" placeholder="Leave some descriptions here" id="content" style="height: 150px"><%= @post.content %></textarea>
+      <label for="content">Tell Others Something About This Place</label>
+    </div>
+
+    <select name="country_id" class="form-select mt-3 mb-3" aria-label="Default select example">
+      <option>Which Country? (required)</option>
+      <% @countries.each do |country| %>
+      <option class="dropdown-item" value="<%= country.id %>" <%= "selected" if country.id == @post.country_id %>><%= country.name %></li>
+      <% end %>
+    </select>
+
+    <% if owner?(@post.user) || admin? %>
+    <div class="mb-4 d-md-flex justify-content-md-end">
+      <button type="submit" class="btn btn-lg btn-primary">Finish</button>
+    </div>
+    <% end %>
+  </form>
+</div>

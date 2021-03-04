@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_02_175138) do
+ActiveRecord::Schema.define(version: 2021_03_03_102943) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
@@ -34,12 +34,15 @@ ActiveRecord::Schema.define(version: 2021_03_02_175138) do
     t.integer "country_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "youtube"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
     t.string "password_digest"
+    t.boolean "admin", default: false
+    t.boolean "super", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

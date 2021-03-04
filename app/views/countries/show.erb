@@ -1,0 +1,26 @@
+<h1 class="text-center mt-5"><%= @country.name %></h1>
+
+<div class="text-center mb-4">
+  <a href="<%= @country.url %>" target="_blank"><button type="button" class="btn btn-link"><strong>Country Info Page</strong></button></a>
+</div>
+
+
+<% @posts.each do |post| %>
+<div class="accordion-item">
+  <h2 class="accordion-header" id="heading<%= post.id %>">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= post.id %>" aria-expanded="false" aria-controls="collapse<%= post.id %>">
+      <%= post.title %> (<span class="align-text-bottom"><small class="text-muted"><em>by <%= post.user.username %></em></small></span>)
+    </button>
+  </h2>
+  <div id="collapse<%= post.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= post.id %>" data-bs-parent="#accordionExample">
+    <div class="accordion-body text-truncate">
+      <%= post.content %>
+    </div>
+    <a href="../posts/<%= post.id %>" class="float-end"><button type="button" class="btn btn-link">Read more...</button></a>
+  </div>
+</div>
+<% end %>
+
+<div class="text-center">
+  <a href="/countries">Back to Country List</a>
+</div>

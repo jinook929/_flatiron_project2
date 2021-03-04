@@ -1,0 +1,27 @@
+<div class="container mt-5 mb-5 d-flex justify-content-center" style="width: 100vw;">
+  <div class="card" style="width: 60vw;">
+    <div class="ratio ratio-16x9 card-img-top">
+      <iframe src="https://www.youtube.com/embed/<%= video_id(@post.youtube) %>?rel=0;&autoplay=1" title="YouTube video" allowfullscreen></iframe>
+    </div>
+    <p class="text-center"><a href="<%= @post.youtube %>" target="_blank">If the video does not play, click here.</a></p>
+    <div class="card-body">
+      <div class="d-flex flex-row">
+        <h5 class="card-title"><%= @post.title %></h5>
+        <% if owner?(@post.user) || super? %>
+        <form action="/posts/<%= @post.id %>" method="post" class="ms-auto">
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+        <% end %>
+      </div>
+      <hr>
+      <p class="card-text"><%= @post.content %></p>
+      <% if owner?(@post.user) || admin? %>
+      <a href="/posts/<%= @post.id %>/edit">Edit this Vlog</a>
+      <% end %>
+      <div class="float-end">
+        <a href="/posts" class="btn btn-light">Back to List</a>
+      </div>      
+    </div>
+  </div>
+</div>

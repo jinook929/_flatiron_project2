@@ -1,0 +1,33 @@
+<% if logged_in? %>
+<div class="card" style="width: 100%;">
+  <div class="card-body">
+    <h5 class="card-title">Profile</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Username: <%= @user.username %></h6>
+    <p class="card-text"><%= @user.email %></p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+
+  <h1>Welcome, <%= current_user.username %>!</h1>
+  <h3>username: <%= @user.username %></h3>
+  <h3>Email: <%= @user.email %></h3>
+  <h4>Posted Countries</h4>
+  <% @user.countries.each do |country| %>
+    <h5>Name: <a href="/countries/<%= country.id %>"><%= country.name %></a></h5>  
+    <p><a href="<%= country.url %>" target="_blank">Click Here for Country Info</a></p>
+  <% end %>
+  <% if admin? %>
+    <h3>Admin? <%= @user.admin %></h3>
+    <h3>Super? <%= @user.super %></h3>
+    <a href="/users">Users List</a>
+    <% if super? %>
+      <a href="/users/<%= @user.id %>/edit">Edit this user.</a>
+    <% end %>
+  <% end %>
+  <a href="/logout"><button>Log Out</button></a>
+<% else %>
+  <h1>Please log in first.</h1>
+  <a href="/login">Log In</a>
+<% end %>
+<a href="/">Back to Main</a>

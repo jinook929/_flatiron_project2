@@ -6,4 +6,5 @@ class Post < ActiveRecord::Base
 
   validates :title, presence: true
   validates :content, presence: true
+  validates :youtube, presence: true
 end

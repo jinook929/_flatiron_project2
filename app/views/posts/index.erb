@@ -1,0 +1,29 @@
+<h1 class="display-3 lh-lg text-center">Check the Vlogs!</h1>
+
+<% if logged_in? %>
+  <div class="text-center mb-5">
+    <a href="/posts/new"><button class="btn btn-secondary btn-lg">Submit New Vlogs</button></a>
+  </div>
+<% end %>
+
+<div class="accordion" id="accordionExample">
+
+  <% @posts.each do |post| %>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading<%= post.id %>">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= post.id %>" aria-expanded="false" aria-controls="collapse<%= post.id %>">
+        <%= post.title %>_<span><small class="mute"><em>by <%= post.user.username%></em></small></span>
+      </button>
+    </h2>
+    <div id="collapse<%= post.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= post.id %>" data-bs-parent="#accordionExample">
+      <div class="accordion-body text-truncate">
+        <%= post.content %>
+      </div>
+      <div class="float-end">
+        <a href="posts/<%= post.id %>"><button type="button" class="btn btn-link">- Watch Vlog -</button></a>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+</div>

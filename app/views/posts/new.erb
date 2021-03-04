@@ -1,0 +1,42 @@
+<% if flash[:message] %>
+  <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+    <span><%= flash[:message] %></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<h1 class="mt-5 mb-3 text-center">Submit Your Vlog Here!</h1>
+
+<div class="text-center">
+  <a href="/posts"><button class="btn btn-secondary btn-lg">Back to Vlogs</button></a>
+</div>
+
+<div class="container ml-5 mr-5">
+  <form action="/posts" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Where?</label>
+      <input type="text" class="form-control" name="title" id="title">
+    </div>
+
+    <div class="mb-3">
+      <label for="youtube" class="form-label">Youtube Address</label>
+      <input type="youtube" class="form-control" name="youtube" id="youtube" placeholder="e.g. https://www.youtube.com/watch?v=h_xjfqrFl7o or https://youtu.be/h_xjfqrFl7o">
+    </div>
+
+    <div class="form-floating">
+      <textarea class="form-control" name="content" placeholder="Leave some descriptions here" id="content" style="height: 150px"></textarea>
+      <label for="content">Tell Others Something About This Place</label>
+    </div>
+
+    <select name="country_id" class="form-select mt-3 mb-3" aria-label="Default select example">
+      <option selected>Which Country? (required)</option>
+      <% @countries.each do |country| %>
+      <option class="dropdown-item" value="<%= country.id %>"><%= country.name %></li>
+      <% end %>
+    </select>
+
+    <div class="mb-4 d-md-flex justify-content-md-end">
+      <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
