@@ -40,7 +40,7 @@
           <form class="d-flex" action="/posts/search" method="GET">
             <label for="keyword">Keyword Search</label>
             <input id="keyword" name="q" class="form-control me-2" type="search" aria-label="Search" placeholder="Search" <%= 'disabled' if not logged_in? %>>
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-outline-success" type="submit" <%= 'disabled' if not logged_in? %>>Search</button>
           </form>
         </div>
       </div>

@@ -1,8 +1,8 @@
-<h1 class="display-3 lh-lg text-center">Check the Vlogs!</h1>
+<h1 class="display-3 lh-lg text-center">Check Your Vlogs!</h1>
 
 <% if logged_in? %>
   <div class="text-center mb-5">
-    <a href="/posts/new"><button class="btn btn-secondary btn-lg">Submit New Vlog</button></a>
+    <a href="/posts/new"><button class="btn btn-secondary btn-lg">Submit New Vlogs</button></a>
   </div>
 <% end %>
 
@@ -20,7 +20,7 @@
         <%= post.content %>
       </div>
       <div class="float-end">
-        <a href="posts/<%= post.id %>"><button type="button" class="btn btn-link">- Watch Vlog -</button></a>
+        <a href="/../posts/<%= post.id %>"><button type="button" class="btn btn-link">- Watch Vlog -</button></a>
       </div>
     </div>
   </div>

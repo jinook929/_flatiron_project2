@@ -8,16 +8,16 @@
   <form action="/signup" method="POST">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" name="username" id="username">
+      <input type="text" class="form-control" name="username" id="username" required>
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email address</label>
-      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
       <div id="emailHelp" class="form-text">We'll never share your personal info with anyone else.</div>
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password">
+      <input type="password" class="form-control" name="password" id="password" required>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

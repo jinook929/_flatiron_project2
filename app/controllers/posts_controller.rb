@@ -49,7 +49,7 @@ class PostController < AppController
   end
 
   get '/posts/:id/edit' do
-    if owner?(User.find_by_id(params[:id])) || admin?
+    if owner?(Post.find_by_id(params[:id]).user) || admin?
       @post = Post.find_by_id(params[:id])
       @countries = Country.all
       erb :'posts/edit'
@@ -59,7 +59,7 @@ class PostController < AppController
   end
 
   patch '/posts/:id' do
-    if owner?(User.find_by_id(params[:id])) || admin?
+    if owner?(Post.find_by_id(params[:id]).user) || admin?
       params.delete("_method")
       params[:user_id] = params[:id]
       @post = Post.update(params[:id], params)
@@ -74,11 +74,11 @@ class PostController < AppController
   end
 
   delete '/posts/:id' do
-    if owner?(User.find_by_id(params[:id])) || super?
+    if owner?(Post.find_by_id(params[:id]).user) || super?
       Post.find_by_id(params[:id]).destroy
       redirect "/posts"
     else
-      redirect "/login"
+      redirect "/posts/#{params[:id]}"
     end
   end
 end
