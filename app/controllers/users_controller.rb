@@ -67,6 +67,8 @@ class UserController < AppController
       redirect "/signup"
     end
 
+    params.delete("password_confirm")
+
     if User.all.empty?
       @user = User.create(params)
       @user.admin = true

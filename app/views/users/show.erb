@@ -1,3 +1,10 @@
+<% if flash[:message] %>
+  <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+    <span><%= flash[:message] %></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
 <% if logged_in? %>
   <div class="card" style="width: 100%;">
     <div class="card-body text-center">
@@ -48,6 +55,7 @@
     
     <p class="text-center mb-4">More Info of the Country <a href="<%= country.url %>" target="_blank">HERE</a> (new window ↺)</p>
   <% end %>
+  <h3 class="text-center text-black-50"><%= "No vlogs for any countries yet." if @user.countries.empty? %></h3>
 
   <h2 class="text-center mt-5 mb-3">- Posts You Commented -</h2>
   <% @user.commented_posts.uniq.reverse.each do |post| %>
@@ -61,6 +69,7 @@
       </div> 
     </div>   
   <% end %>
+  <h3 class="text-center text-black-50"><%= "No commented vlogs yet." if @user.commented_posts.empty? %></h3>
 
 <% else %>
   <h1 class="text-center">Please log in first.</h1>

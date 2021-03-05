@@ -1,3 +1,7 @@
+#navbar {
+  z-index: 2;
+}
+
 .landing h1{
   color: indianred;
   text-decoration: none;

@@ -5,6 +5,10 @@ class CountryController < AppController
   end
 
   get '/countries/country' do
+    if params[:name] == "Countries (You can type)"
+      flash[:message] = "Select a Country."
+      redirect "/countries"
+    end
     country = Country.find_by(name: params[:name])
     redirect "/countries/#{country.id}"
   end

@@ -1,3 +1,10 @@
+<% if flash[:message] %>
+  <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+    <span><%= flash[:message] %></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
 <div class="container mt-5 mb-5 text-center">
   <h1>Choose a Country</h1>
 
