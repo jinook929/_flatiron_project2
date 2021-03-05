@@ -1,9 +1,8 @@
-# User.create(username: "Person_01", email: "person_01@users.com", password: "123")
-# User.create(username: "Person_02", email: "person_02@users.com", password: "123")
-# User.create(username: "Person_03", email: "person_03@users.com", password: "123")
+# countries will be set when the server is requested at root for the first time.
 
-# Country.create(name: "Korea South", url: "http://www.geognos.com/geo/en/cc/kr.html")
-# Country.create(name: "United States", url: "http://www.geognos.com/geo/en/cc/us.html")
+User.create(username: "super", email: "super@users.com", password: "123") # first registered user will be super & admin
+User.create(username: "admin", email: "admin@users.com", password: "123", admin: ture) # not super, just admin
+User.create(username: "user", email: "user@users.com", password: "123") # normal user
 
 Post.create(title: "Post_01", content: "01_This is the Content of the post on Seoul, South Korea.", user_id: 1, country_id: 117)
 Post.create(title: "Post_02", content: "02_This is the Content of the post on New York, United States.", user_id: 2, country_id: 230)

@@ -1,55 +1,68 @@
 <% if logged_in? %>
-<div class="card" style="width: 100%;">
-  <div class="card-body text-center">
-    <h1 class="card-title">User Profile</h1>
-    <h2 class="card-subtitle mb-2 text-muted">Username: <%= @user.username %></h2>
-    <h3 class="card-text"><%= @user.email %></h3>
+  <div class="card" style="width: 100%;">
+    <div class="card-body text-center">
+      <h1 class="card-title">User Profile</h1>
+      <h2 class="card-subtitle mb-2 text-muted">Username: <%= @user.username %></h2>
+      <h3 class="card-text"><%= @user.email %></h3>
 
-    <% if admin? %><!--check admin-->
-      <h3>Admin? <% if @user.admin %> [ Yes ] <% else %> [ No ]<% end %></h3>
-      <h3>SuperAdmin?  <% if @user.super %> [ Yes ] <% else %> [ No ]<% end %></h3>
-      <div>
-        <a href="/users">Users List</a>
-        <% if super? %><!--check super-->
-        <span> | </span>
+      <% if admin? %><!--check admin-->
+        <h3>Admin? <% if @user.admin %> [ Yes ] <% else %> [ No ]<% end %></h3>
+        <h3>SuperAdmin?  <% if @user.super %> [ Yes ] <% else %> [ No ]<% end %></h3>
+        <div>
+          <a href="/users">Users List</a>
+          <% if super? %><!--check super-->
+          <span> | </span>
+          <a href="/users/<%= @user.id %>/edit">Edit the user info</a>
+        </div>
+        <div class="mt-3">
+          <% if not @user.super %><!--check super-self-->
+          <form action="/users/<%= @user.id %>" method="POST">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn btn-sm btn-warning">Delet This User</button>
+          </form>
+          <% end %><!--check super-self-->
+        </div>
+        <% else %><!--check super-->
+        </div>
+        <% end %><!--check super-->
+      <% end %><!--check admin-->
+
+      <% if current_user.id == @user.id %>
         <a href="/users/<%= @user.id %>/edit">Edit the user info</a>
-      </div>
-      <div class="mt-3">
-        <% if not @user.super %><!--check super-self-->
-        <form action="/users/<%= @user.id %>" method="POST">
-          <input type="hidden" name="_method" value="delete">
-          <button type="submit" class="btn btn-sm btn-warning">Delet This User</button>
-        </form>
-        <% end %><!--check super-self-->
-      </div>
-      <% else %><!--check super-->
-      </div>
-      <% end %><!--check super-->
-    <% end %><!--check admin-->
+      <% end %>
 
-    <% if current_user.id == @user.id %>
-      <a href="/users/<%= @user.id %>/edit">Edit the user info</a>
-    <% end %>
-
+    </div>
   </div>
-</div>
 
-  <h2 class="text-center mt-5 mb-5">Countries You Posted For</h2>
+  <h2 class="text-center mt-5 mb-5">
+    - <a class="text-center" href="/users/<%= @user.id %>/posts"><strong>All Your Vlogs</strong></a> -
+  </h2>
+
+  <h2 class="text-center mt-5 mb-3">- Countries You Posted For -</h2>
   <% @user.countries.uniq.each do |country| %>
-    <h4 class="text-center">Name: <a href="/countries/<%= country.id %>"><%= country.name %></a></h4>
-    <p class="text-center">(Click the country name to see all the vlogs list about this country.)</p>
-    <p class="text-center mb-5"><a href="<%= country.url %>" target="_blank">Click Here for Country Info</a></p>
+    <div class="d-grid">
+      <button class="btn btn-outline-light ms-auto me-auto" role="alert" style="width: fit-content;">
+        <h4 class="text-center"><a href="/countries/<%= country.id %>"><%= country.name %></a></h4>
+      </button>
+    </div>
+    
+    <p class="text-center mb-4">More Info of the Country <a href="<%= country.url %>" target="_blank">HERE</a> (new window ↺)</p>
   <% end %>
 
-  <h2 class="text-center mt-5 mb-5">Posts You Commented</h2>
+  <h2 class="text-center mt-5 mb-3">- Posts You Commented -</h2>
   <% @user.commented_posts.uniq.reverse.each do |post| %>
-    <h4 class="text-center mb-3">Title: <a href="/posts/<%= post.id %>"><%= post.title %></a></h4>
+    <div class="d-grid"></div>
+      <div class="alert alert-secondary ms-auto me-auto" role="alert" style="width: 50%; padding-top: 10px; padding-bottom: 0;">
+        <div class="d-md-flex justify-content-md-center gap-4">
+          <h5 class="text-center mb-3"><a href="/posts/<%= post.id %>" class="alert-link"><%= post.title %></a> </h5>
+          <small class="mute"><em>by <%= post.user.username %></em></small>
+        </div>
+        
+      </div> 
+    </div>   
   <% end %>
 
 <% else %>
   <h1 class="text-center">Please log in first.</h1>
   <a href="/login">Log In</a>
 <% end %>
-<h2 class="text-center mt-5 mb-5">
-  <a class="text-center" href="/users/<%= @user.id %>/posts"><strong>User's All Vlogs</strong></a>
-</h2>

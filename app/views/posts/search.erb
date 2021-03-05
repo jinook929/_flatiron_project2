@@ -1,11 +1,12 @@
 <h1 class="text-center mt-5 mb-5">Search Results</h1>
 
-<% @results.each do |post| %>
-  <a href="/posts/<%= post.id %>"><h2><%= post.title %></h2></a>
-  <h4><%= post.content %></h4>
-  <p><em>by <%= post.user.username %></em> at <%= post.created_at %></p>
-  <% if post.updated_at != post.created_at %>
-    <p>(updated @ <%= post.updated_at %>)</p>
+<div class="container">
+  <% @results.each do |post| %>
+    <a href="/posts/<%= post.id %>"><h3><%= post.title %></h3></a>
+    <h5 class="text-truncate"><%= post.content %></h5>
+    <p><em>by <%= post.user.username %></em> at <% if post.updated_at == post.created_at %><%= post.created_at %><% else %><%= post.updated_at %> (edited)<% end %></p>    
+    <hr>
   <% end %>
-  <hr>
-<% end %>
+  <h3 class="text-center text-black-50"><%= "No vlogs for this keyword." if @results.empty? %></h3>
+</div>
+

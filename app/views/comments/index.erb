@@ -25,7 +25,7 @@
               </span>
             </div>
 
-            <% if current_user==comment.commenter || admin? %><!--#ownership-->
+            <% if current_user==comment.commenter || admin? %><!--#edit & delete-->
               <div>
                 <a href="/posts/<%= @post.id %>/comments/<%= comment.id %>/edit">
                   <button class="badge rounded-pill bg-warning"><small>Edit</small></button>
@@ -37,7 +37,7 @@
                   <button type="submit" class="badge rounded-pill bg-danger"><small>Delete</small></button>
                 </form>
               </div>
-            <% end %><!--#ownership-->
+            <% end %><!--#edit & delete-->
 
           </footer>
 

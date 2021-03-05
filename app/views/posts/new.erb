@@ -29,7 +29,7 @@
     </div>
 
     <select name="country_id" class="form-select mt-3 mb-3" aria-label="Default select example">
-      <option selected>Which Country? Enter the first letter of the country to find faster. (required)</option>
+      <option selected>Which Country? You can enter the name of the country to find faster. (required)</option>
       <% @countries.each do |country| %>
       <option class="dropdown-item" value="<%= country.id %>"><%= country.name %></li>
       <% end %>

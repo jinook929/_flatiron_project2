@@ -1,15 +1,20 @@
 <div class="container mt-5 mb-5 text-center">
   <h1>Choose a Country</h1>
 
-<div class="dropdown mt-5 mb-5 d-flex justify-content-center">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" style="width: 350px;">
-    Countries
-  </button>
-  <ul class="dropdown-menu dropdown-menu-end">
-    <% @countries.each do |country| %>
-    <li><a class="dropdown-item" href="/countries/<%= country.id %>"><%= country.name %></a></li>
-    <% end %>
-  </ul>
-</div>
-<a href="/">back to main</a>
+  <div class="dropdown d-flex justify-content-center">
+    <form action="/countries/country" method="get">
+      <select name="name" class="form-select mt-3 mb-3" style="width: 350px;" aria-label="Default select example">
+        <option selected>Countries (You can type)</option>
+        <% @countries.each do |country| %>
+        <option class="dropdown-item" value="<%= country.name %>"><%= country.name %></option>
+        <% end %>
+      </select>
+
+      <div class="mb-5 d-md-flex justify-content-md-center">
+        <button type="submit" class="btn btn-sm btn-primary">Find Related Vlogs</button>
+      </div>
+    </form>
+  </div>
+
+  <a href="/">back to main</a>
 </div>

@@ -10,7 +10,7 @@
 
       <% @comments.each do |comment| %><!--#looping-->
 
-        <% if current_user == comment.commenter && @comment_id_check == comment.id || admin? && @comment_id_check == comment.id %><!--#form or display-->
+        <% if current_user == comment.commenter && @comment_id_check == comment.id || admin? && @comment_id_check == comment.id %><!--#edit form or display-->
 
           <div class="d-flex flex-row gap-2">
             <form action="/posts/<%= @post.id %>/comments/<%= comment.id %>" method="post" class="form-floating mt-2 mb-0 d-flex flex-row gap-2" style="width: 98%;">
@@ -27,7 +27,7 @@
             <a href="/posts/<%= @post.id %>">Quit Editing</a>
           </div>
 
-        <% else %><!--#form or display-->
+        <% else %><!--#edit form or display-->
 
           <blockquote class="blockquote mb-3">
             <p class="fs-6"><%= comment.content %></p>
@@ -48,7 +48,7 @@
             </footer>
           </blockquote>
 
-        <% end %><!--#form or display-->
+        <% end %><!--#edit form or display-->
 
       <% end %><!--#looping-->
 

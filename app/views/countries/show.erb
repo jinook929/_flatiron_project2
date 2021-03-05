@@ -1,7 +1,7 @@
 <h1 class="text-center mt-5"><%= @country.name %></h1>
 
 <div class="text-center mb-4">
-  <a href="<%= @country.url %>" target="_blank"><button type="button" class="btn btn-link"><strong>Country Info Page</strong></button></a>
+  <a href="<%= @country.url %>" target="_blank"><button type="button" class="btn btn-link"><strong>Country Info Page (new window ↺)</strong></button></a>
 </div>
 
 
@@ -21,6 +21,8 @@
 </div>
 <% end %>
 
-<div class="text-center">
+<h3 class="text-center text-black-50"><%= "No vlogs for this country yet." if @posts.empty? %></h3>
+
+<div class="text-center mt-5">
   <a href="/countries">Back to Country List</a>
 </div>

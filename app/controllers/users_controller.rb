@@ -56,6 +56,11 @@ class UserController < AppController
   end
 
   post '/signup' do
+    if params[:password] != params[:password_confirm]
+      flash[:message] = "Passwords did not match..."
+      redirect "/signup"
+    end
+
     if User.all.empty?
       @user = User.create(params)
       @user.admin = true
@@ -120,6 +125,14 @@ class UserController < AppController
 
   post '/login' do
     user = User.find_by(username: params[:username])
+    if !user
+      flash[:message] = "Username not registered..."
+      redirect '/login'
+    elsif !user.authenticate(params[:password])
+      flash[:message] = "Password does not match..."
+      redirect '/login'
+    end
+
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:message] = "Hello, #{current_user.username.upcase}"
