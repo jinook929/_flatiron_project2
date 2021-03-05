@@ -14,9 +14,9 @@ class PostController < AppController
   end
 
   get '/posts/search' do
-    keyword = params[:q]
+    @keyword = params[:q]
     @results = Post.all.select {|post|
-      post.title.downcase.include?(keyword) || post.content.downcase.include?(keyword)
+      post.title.downcase.include?(@keyword) || post.content.downcase.include?(@keyword)
     }.reverse
     erb :'posts/search'
   end

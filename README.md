@@ -40,49 +40,129 @@ by Jinook Jung
 
 ### Country List Page
 
-![Login Page](./public/images/03_login.png)
+![Country List Page](./public/images/04_countrylist.png)
 
 ### Vlog List Page
 
-![Login Page](./public/images/03_login.png)
+![Vlog List Page](./public/images/05_vloglist.png)
+
+### Profile Page
+
+![Profile Page](./public/images/06_profile.png)
+
+### Vlog Page
+
+![Vlog Page](./public/images/07_vlog.png)
+
+### New Vlog Page
+
+![New Vlog Page](./public/images/08_newvlog.png)
+
+### Edit Vlog Page
+
+![Edit Vlog Page](./public/images/09_editvlog.png)
+
+### Comment Section
+
+![Comment Section](./public/images/10_comment.png)
+
+### Edit Comment
+
+![Edit Comment](./public/images/11_editcomment.png)
+
+### Search Results
+
+![Search Results](./public/images/12_search.png)
 
 
 
 ## Data Structure
 
-### Country Info & Weather Info (by sources)
+### Tables
 
-* [World Countries API](http://www.geognos.com/geo/en/world-countries-API.html)
-* [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/get-api-key)
-* Scraping of Country Details Web Pages (e.g. [Korea](http://www.geognos.com/geo/en/cc/kr.html))
-* Scraping of Weather Info Website ([Dark Sky](https://darksky.net/forecast/37,127.3/) [with latitude & longitude info of the country])
-* [List of capital cities with latitude and longitude](https://www.jasom.net/list-of-capital-cities-with-latitude-and-longitude/)
-* [Ruby Geocoder Gem](http://www.rubygeocoder.com/)
+#### users
 
-### Object Keys (sorted by classes & sources)
+```ruby
+  t.string :username
+  t.string :email
+  t.string :password_digest
+  t.boolean :admin, default: false # (except for the first user)
+  t.boolean :super, default: false # (except for the first user)
+```
 
-* **Country** (*basics*) [Country API] :name, :capital, :url, :lat, :long
-* **Country** (*details*) [Country SCRAPING] :location, :language, :population, :currency, :background(*, and sometimes* :capital)
-* **Weather** (*area*) [Google Geocoding API] :area
-* **Weather** (*weather related*) [Weather SCRAPING] :temperature, :feels, :wind, :summary
+#### posts
 
-## References
+```ruby
+  t.string :title
+  t.text :content
+  t.string :youtube
+  t.integer :country_id
+  t.integer :user_id
+```
 
-### Module Sections
+#### countries
 
-* getting-remote-data-working-with-apis 
-* oo-student-scraper 
-* scraping-flatiron-code-along
-* scraping-kickstarter
-* weather-app
-* worlds-best-restaurants-cli-gem 
+```ruby
+  t.string :name
+  t.string :url
+```
 
-### Web Resources
+#### comments
 
-* Colorize [Docs](https://github.com/fazibear/colorize)
-* HTTParty [Docs](https://github.com/jnunemaker/httparty/tree/master/docs)
-* Nokogiri [Docs](label-Parsing+and+Querying)
-* dotenv [Docs](https://github.com/bkeepers/dotenv)
+```ruby
+    t.string :content
+    t.integer :post_id
+    t.integer :commenter_id
+```
+
+### Model Associations & Validations
+
+#### User
+
+```ruby
+  has_many :posts
+  has_many :comments, foreign_key: "commenter_id"
+  has_many :countries, through: :posts, source: :country
+  has_many :commented_posts, through: :comments, source: :post
+
+  has_secure_password
+
+  validates :username, presence: true
+  validates :username, uniqueness: true
+  validates :email, presence: true
+  validates :email, uniqueness: true
+  validates :password, presence: true
+```
+
+#### Post
+
+```ruby
+  belongs_to :user  
+  belongs_to :country
+  has_many :comments
+  has_many :commenters, through: :comments, source: :user
+
+  validates :title, presence: true
+  validates :content, presence: true
+  validates :youtube, presence: true
+```
+
+#### Comment
+
+```ruby
+  belongs_to :post
+  belongs_to :commenter, class_name: "User"
+
+  validates :content, presence: true
+```
+
+#### Country
+
+```ruby
+  has_many :posts
+
+  validates :name, presence: true
+```
 
 ## Contributing
 
