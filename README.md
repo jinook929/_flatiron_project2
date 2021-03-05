@@ -110,9 +110,9 @@ by Jinook Jung
 #### comments
 
 ```ruby
-    t.string :content
-    t.integer :post_id
-    t.integer :commenter_id
+  t.string :content
+  t.integer :post_id
+  t.integer :commenter_id
 ```
 
 ### Model Associations & Validations
