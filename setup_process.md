@@ -16,6 +16,10 @@ gem 'sinatra'
 gem 'activerecord', '~> 5.2.4.5', :require => 'active_record'
 gem 'sinatra-activerecord'
 gem 'sqlite3'
+gem 'bcrypt'
+gem 'rack-flash3'
+gem 'httparty'
+gem 'json'
 gem 'shotgun'
 
 gem 'require_all'
@@ -66,12 +70,15 @@ README.md
 require 'bundler'
 Bundler.require
 
-ActiveRecord::Base.establish_connection ({
-  adapter: "sqlite3", 
-  database: "db/database.db"
-})
-
 require_all 'app'
+
+set(:database, {adapter: "sqlite3", database: "db/vlogdata.db"})
+############################################
+# ActiveRecord::Base.establish_connection ({
+#   adapter: "sqlite3", 
+#   database: "db/database.db"
+# })
+############################################
 ```
 # 8. migration files
 ```ruby
@@ -87,12 +94,11 @@ $ rake db:create_migration NAME=create_comments
 
 # 11. ./db/`seeds.rb`
 ```ruby
-User.create(username: "Person_01", email: "person_01@users.com", password: "123")
-User.create(username: "Person_02", email: "person_02@users.com", password: "123")
-User.create(username: "Person_03", email: "person_03@users.com", password: "123")
+# countries will be set when the server is requested at root for the first time.
 
-# Country.create(name: "Korea South", url: "http://www.geognos.com/geo/en/cc/kr.html")
-# Country.create(name: "United States", url: "http://www.geognos.com/geo/en/cc/us.html")
+User.create(username: "super", email: "super@users.com", password: "123") # first registered user will be super & admin
+User.create(username: "admin", email: "admin@users.com", password: "123", admin: ture) # not super, just admin
+User.create(username: "user", email: "user@users.com", password: "123") # normal user
 
 Post.create(title: "Post_01", content: "01_This is the Content of the post on Seoul, South Korea.", user_id: 1, country_id: 117)
 Post.create(title: "Post_02", content: "02_This is the Content of the post on New York, United States.", user_id: 2, country_id: 230)
@@ -100,48 +106,18 @@ Post.create(title: "Post_03", content: "03_This is the Content of the post on Il
 Post.create(title: "Post_04", content: "04_This is the Content of the post on Dallas, United States.", user_id: 1, country_id: 230)
 Post.create(title: "Post_05", content: "05_This is the Content of the post on Little Rock, United States.", user_id: 2, country_id: 230)
 
-Comment.creat(content: "Comment_01", post_id: 1, commenter_id: 2)
-Comment.creat(content: "Comment_02", post_id: 1, commenter_id: 1)
-Comment.creat(content: "Comment_03", post_id: 2, commenter_id: 3)
-Comment.creat(content: "Comment_04", post_id: 2, commenter_id: 2)
-Comment.creat(content: "Comment_05", post_id: 3, commenter_id: 1)
-Comment.creat(content: "Comment_06", post_id: 3, commenter_id: 2)
-Comment.creat(content: "Comment_07", post_id: 4, commenter_id: 3)
-Comment.creat(content: "Comment_08", post_id: 1, commenter_id: 2)
-Comment.creat(content: "Comment_09", post_id: 1, commenter_id: 1)
-Comment.creat(content: "Comment_10", post_id: 5, commenter_id: 1)
+Comment.create(content: "Comment_01", post_id: 1, commenter_id: 2)
+Comment.create(content: "Comment_02", post_id: 1, commenter_id: 1)
+Comment.create(content: "Comment_03", post_id: 2, commenter_id: 3)
+Comment.create(content: "Comment_04", post_id: 2, commenter_id: 2)
+Comment.create(content: "Comment_05", post_id: 3, commenter_id: 1)
+Comment.create(content: "Comment_06", post_id: 3, commenter_id: 2)
+Comment.create(content: "Comment_07", post_id: 4, commenter_id: 3)
+Comment.create(content: "Comment_08", post_id: 1, commenter_id: 2)
+Comment.create(content: "Comment_09", post_id: 1, commenter_id: 1)
+Comment.create(content: "Comment_10", post_id: 5, commenter_id: 1)
 ```
 
 # 12. $ `rake db:seed`
 
 # 13. $ `shotgun`
-
-
-
-```ruby
-|- app
-|    |- controllers
-|    |            app_controller.rb
-|    |            user_controller.rb
-|    |            post_controller.rb
-|    |            comment_controller.rb
-|    |- models
-|    |       comment.rb
-|    |       post.rb
-|    |       user.rb
-|    |- views
-|           |- comments
-|           |- posts
-|           |- users
-|           main.rb
-|- config
-|       environment.rb
-|- db
-|   |- migrate
-|   seed.rb
-config.ru
-Gemfile
-Rakefile
-README.md
-```
-
