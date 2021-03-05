@@ -59,6 +59,12 @@ class UserController < AppController
     if params[:password] != params[:password_confirm]
       flash[:message] = "Passwords did not match..."
       redirect "/signup"
+    elsif User.all.find {|user| user.username == params[:username]}
+      flash[:message] = "' #{params[:username]} ' is already used by another user."
+      redirect "/signup"
+    elsif User.all.find {|user| user.email == params[:email]}
+      flash[:message] = "' #{params[:email]} ' is a registerd email."
+      redirect "/signup"
     end
 
     if User.all.empty?

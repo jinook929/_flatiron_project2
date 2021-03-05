@@ -1,147 +1,114 @@
-# TraVlog
+# TraVlog Sinatra App
+by Jinook Jung
+* * * * * * * * * *
+## To Use the App
 
-# 1. $ `bundle init`
+1. Visit my [Github repository](https://github.com/jinook929/_flatiron_project2) and clone the code to your local directory:\
+`git clone https://github.com/jinook929/_flatiron_project2.git`
+2. Enter into the *_flatiron_project1* fold: `cd _flatiron_project1`.
+3. Open `weather_api_scraper.rb` file in `lib` folder and change line 8 as below:\
+*api_key* = ENV["API_KEY"] => *api_key* = "**Your Google Geocoding API key**"\
+(Don't forget the quotation marks!!!)
+4. Execute `bundle install`.
+5. Then, run `ruby bin/run`.
 
-# 2. ./`Gemfile`
-```ruby
-# frozen_string_literal: true
+## How to use Country Info CLI App
 
-source "https://rubygems.org"
+### Welcome screen (Alphabetical Range List)
+**Welcome to Country Info CLI App!**
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+||  1. A-B  ||  2. C-D  ||  3. E-G  ||  4. H-K  ||\
+||  5. L-M  ||  6. N-R  ||  7. S-T  ||  8. U-Z  ||\
+**What is the first letter of the country that you are looking for?**
 
-# gem "rails"
-gem 'rake'
-gem 'sinatra'
-gem 'activerecord', '~> 5.2.4.5', :require => 'active_record'
-gem 'sinatra-activerecord'
-gem 'sqlite3'
-gem 'shotgun'
+- *When the input is not valid*
 
-gem 'require_all'
-gem 'pry'
-```
+**Please see the alphabet list and enter a number between 1 and 8 (or a single letter).**\
+||  1. A-B  ||  2. C-D  ||  3. E-G  ||  4. H-K  ||\
+||  5. L-M  ||  6. N-R  ||  7. S-T  ||  8. U-Z  ||\
+**What is the first letter of the country that you are looking for?**
 
-# 3. $ `bundle install`
+### Country List Screen Sample
+**Which country do you want to know about?**\
+| 1. Uganda | 2. Ukraine | 3. United Arab Emirates | 4. United Kingdom | 5. United States |\
+| 6. Uruguay | 7. Uzbekistan | 8. Vanuatu | 9. Venezuela | 10. Vietnam |\
+| 11. Virgin Islands | 12. Wallis and Futuna | 13. Western Sahara | 14. Yemen | 15. Zambia |\
+| 16.  Zimbabwe
 
-# 4. ./`Rakefile`
-```ruby
-require_relative './config/environment'
-require 'sinatra/activerecord/rake'
+**Enter the number (or country name) of your choice. =>**
 
-desc "Start Pry console"
-task :console do
-  Pry.start
-end
-```
+### Country Info Screen Sample
+===   United States   ===
 
-# 5. ./`config.ru`
-```ruby
-require_relative './config/environment'
+^ Capital City: Washington, DC\
+^ Language: English\
+^ Population: 307,212,123\
+^ Currency: USD (US dollar)\
+^ Background:\
+Britain's American colonies broke with the mother country in 1776 and were recognized as the new nation of the United States of America following the Treaty of Paris in 1783. During the 19th and 20th centuries, 37 new states were added to the original 13 as the nation expanded across the North American continent and acquired a number of overseas possessions. The two most traumatic experiences in the nation's history were the Civil War (1861-65), in which a northern Union of states defeated a secessionist Confederacy of 11 southern slave states, and the Great Depression of the 1930s, an economic downturn during which about a quarter of the labor force lost its jobs. Buoyed by victories in World Wars I and II and the end of the Cold War in 1991, the US remains the world's most powerful nation state. The economy is marked by steady growth, low unemployment and inflation, and rapid advances in technology.\
+&nbsp;=> More Info: http://www.geognos.com/geo/en/cc/us.html
 
-use Rack::MethodOverride
-# other controllers here
-run AppController
-```
+**Do you want to know the currunt weather of this country? [Capital Area] (Y/N)**\
+=> *If you choose "Y" or "YES" (case-insensitive), you will see the weather info screen for the capital area of the country.*
 
-# 6. folders
-```ruby
-|- app
-|    |- controllers
-|    |- models
-|    |- views
-|- config
-|       environment.rb
-|- db
-|   |- migrate
-|   seeds.rb
-config.ru
-Gemfile
-Rakefile
-README.md
-```
+### Weather Info Screen Sample
+Do you want to know the currunt weather of this country? [Capital Area] (Y/N) **yes**\
+[ AREA : Washington, DC, USA (around the capital) ]\
+Temperature =  37˚F (Feels Like: 30˚F) / Wind = 11 mph\
+Daily Low & High =  Low: 29˚F - High: 42˚F / Clear throughout the day
 
-# 7. ./config/`environment.rb`
-```ruby
-require 'bundler'
-Bundler.require
+**Do you want to know about another country? (Y/N)**\
+=> *If you choose "Y" or "YES" (case-insensitive), the app will lead you to the beginning (the alphabet range list).*
 
-ActiveRecord::Base.establish_connection ({
-  adapter: "sqlite3", 
-  database: "db/database.db"
-})
+### Ending Screen
+++++++++++++++++++++++++++++
 
-require_all 'app'
-```
-# 8. migration files
-```ruby
-$ rake db:create_migration NAME=create_users
-$ rake db:create_migration NAME=create_posts
-$ rake db:create_migration NAME=create_countries
-$ rake db:create_migration NAME=create_comments
-```
+Thank you for using our app!
 
-# 9. model files: ./app/models/`user.rb` `post.rb` `comment.rb` `country.rb` ...
+~ ~ ~  See you later.  ~ ~ ~
 
-# 10. $ `rake db:migrate`
+++++++++++++++++++++++++++++
 
-# 11. ./db/`seeds.rb`
-```ruby
-User.create(username: "Person_01", email: "person_01@users.com", password: "123")
-User.create(username: "Person_02", email: "person_02@users.com", password: "123")
-User.create(username: "Person_03", email: "person_03@users.com", password: "123")
+## Data Sources and Structure
 
-# Country.create(name: "Korea South", url: "http://www.geognos.com/geo/en/cc/kr.html")
-# Country.create(name: "United States", url: "http://www.geognos.com/geo/en/cc/us.html")
+### Country Info & Weather Info (by sources)
+- [World Countries API](http://www.geognos.com/geo/en/world-countries-API.html)
+- [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/get-api-key)
+- Scraping of Country Details Web Pages (e.g. [Korea](http://www.geognos.com/geo/en/cc/kr.html))
+- Scraping of Weather Info Website ([Dark Sky](https://darksky.net/forecast/37,127.3/) [with latitude & longitude info of the country])
+- [List of capital cities with latitude and longitude](https://www.jasom.net/list-of-capital-cities-with-latitude-and-longitude/)
+- [Ruby Geocoder Gem](http://www.rubygeocoder.com/)
 
-Post.create(title: "Post_01", content: "01_This is the Content of the post on Seoul, South Korea.", user_id: 1, country_id: 117)
-Post.create(title: "Post_02", content: "02_This is the Content of the post on New York, United States.", user_id: 2, country_id: 230)
-Post.create(title: "Post_03", content: "03_This is the Content of the post on Ilsan, South Korea.", user_id: 3, country_id: 117)
-Post.create(title: "Post_04", content: "04_This is the Content of the post on Dallas, United States.", user_id: 1, country_id: 230)
-Post.create(title: "Post_05", content: "05_This is the Content of the post on Little Rock, United States.", user_id: 2, country_id: 230)
+### Object Keys (sorted by classes & sources)
+- **Country** (*basics*) [Country API] :name, :capital, :url, :lat, :long
+- **Country** (*details*) [Country SCRAPING] :location, :language, :population, :currency,:background(*, and sometimes* :capital)
+- **Weather** (*area*) [Google Geocoding API] :area
+- **Weather** (*weather related*) [Weather SCRAPING] :temperature, :feels, :wind, :summary
 
-Comment.creat(content: "Comment_01", post_id: 1, commenter_id: 2)
-Comment.creat(content: "Comment_02", post_id: 1, commenter_id: 1)
-Comment.creat(content: "Comment_03", post_id: 2, commenter_id: 3)
-Comment.creat(content: "Comment_04", post_id: 2, commenter_id: 2)
-Comment.creat(content: "Comment_05", post_id: 3, commenter_id: 1)
-Comment.creat(content: "Comment_06", post_id: 3, commenter_id: 2)
-Comment.creat(content: "Comment_07", post_id: 4, commenter_id: 3)
-Comment.creat(content: "Comment_08", post_id: 1, commenter_id: 2)
-Comment.creat(content: "Comment_09", post_id: 1, commenter_id: 1)
-Comment.creat(content: "Comment_10", post_id: 5, commenter_id: 1)
-```
+## References
 
-# 12. $ `rake db:seed`
+### Module Sections
+- getting-remote-data-working-with-apis 
+- oo-student-scraper 
+- scraping-flatiron-code-along
+- scraping-kickstarter
+- weather-app
+- worlds-best-restaurants-cli-gem 
 
-# 13. $ `shotgun`
+### Web Resources
+- Colorize [Docs](https://github.com/fazibear/colorize)
+- HTTParty [Docs](https://github.com/jnunemaker/httparty/tree/master/docs)
+- Nokogiri [Docs](label-Parsing+and+Querying)
+- dotenv [Docs](https://github.com/bkeepers/dotenv)
 
+## Contributing
 
+Bug reports and pull requests are welcome on GitHub at https://github.com/jinook929/_flatiron_project1. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
-```ruby
-|- app
-|    |- controllers
-|    |            app_controller.rb
-|    |            user_controller.rb
-|    |            post_controller.rb
-|    |            comment_controller.rb
-|    |- models
-|    |       comment.rb
-|    |       post.rb
-|    |       user.rb
-|    |- views
-|           |- comments
-|           |- posts
-|           |- users
-|           main.rb
-|- config
-|       environment.rb
-|- db
-|   |- migrate
-|   seed.rb
-config.ru
-Gemfile
-Rakefile
-README.md
-```
+## Contributors
+- Jinook Jung <jinook929@gmail.com>
 
+## License & Copyright
+© Jinook Jung
+
+The app is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
