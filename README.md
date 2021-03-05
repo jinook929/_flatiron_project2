@@ -5,12 +5,15 @@ by Jinook Jung
 
 1. Visit my [Github repository](https://github.com/jinook929/_flatiron_project2) and clone the code to your local directory:\
 `git clone https://github.com/jinook929/_flatiron_project2.git`
-2. Enter into the *_flatiron_project1* fold: `cd _flatiron_project1`.
-3. Open `weather_api_scraper.rb` file in `lib` folder and change line 8 as below:\
-*api_key* = ENV["API_KEY"] => *api_key* = "**Your Google Geocoding API key**"\
-(Don't forget the quotation marks!!!)
-4. Execute `bundle install`.
-5. Then, run `ruby bin/run`.
+2. Enter into the *_flatiron_project2* fold: `cd _flatiron_project2`.
+3. Execute `bundle install` and run `shotgun` in terminal.
+4. Then, open your browser at `http://localhost:9393/`.
+5. You can either sign up your account or use the existing accounts to log in.
+6. Before logging in, user still can see vlog list by countries and each individual vlog from there, but no more than that.
+7. If you log in as `super` (password: 123), you can create, read, update, and delete vlogs, comments, and even users, like making someone else admin, except for deleting yourself.
+8. If you log in as `admin` (password: 123), you can create, read, and update vlogs, and create, read, update, and delete comments, and read the users.
+9. If you log in as normal user (`user`, password: 123), you can create, update, and delete your own vlogs and comments, and read all vlogs and comments.
+10. Each user has access to his/her own profile (user info, vlog info, country info, and comment info) through `Welcome, USER` link on the navbar.
 
 ## How to use Country Info CLI App
 

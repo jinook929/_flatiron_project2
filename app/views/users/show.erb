@@ -27,7 +27,7 @@
         <% end %><!--check super-->
       <% end %><!--check admin-->
 
-      <% if current_user.id == @user.id %>
+      <% if (current_user.id == @user.id && !super?) %>
         <a href="/users/<%= @user.id %>/edit">Edit the user info</a>
       <% end %>
 
