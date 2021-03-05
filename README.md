@@ -6,7 +6,7 @@ by Jinook Jung
 
 ## How To Set Up the App
 
-1. Visit my [Github repository](https://github.com/jinook929/_flatiron_project2) and clone the code to your local directory:\
+1. Visit my [Github repository](https://github.com/jinook929/_flatiron_project2) and clone the code to your local directory:
 
  `git clone https://github.com/jinook929/_flatiron_project2.git`
 
@@ -74,15 +74,13 @@ by Jinook Jung
 
 ![Search Results](./public/images/12_search.png)
 
-
-
 ## Data Structure
 
 ### Tables
 
 #### users
 
-```ruby
+``` ruby
   t.string :username
   t.string :email
   t.string :password_digest
@@ -92,7 +90,7 @@ by Jinook Jung
 
 #### posts
 
-```ruby
+``` ruby
   t.string :title
   t.text :content
   t.string :youtube
@@ -102,14 +100,14 @@ by Jinook Jung
 
 #### countries
 
-```ruby
+``` ruby
   t.string :name
   t.string :url
 ```
 
 #### comments
 
-```ruby
+``` ruby
   t.string :content
   t.integer :post_id
   t.integer :commenter_id
@@ -119,7 +117,7 @@ by Jinook Jung
 
 #### User
 
-```ruby
+``` ruby
   has_many :posts
   has_many :comments, foreign_key: "commenter_id"
   has_many :countries, through: :posts, source: :country
@@ -136,7 +134,7 @@ by Jinook Jung
 
 #### Post
 
-```ruby
+``` ruby
   belongs_to :user  
   belongs_to :country
   has_many :comments
@@ -149,7 +147,7 @@ by Jinook Jung
 
 #### Comment
 
-```ruby
+``` ruby
   belongs_to :post
   belongs_to :commenter, class_name: "User"
 
@@ -158,7 +156,7 @@ by Jinook Jung
 
 #### Country
 
-```ruby
+``` ruby
   has_many :posts
 
   validates :name, presence: true
