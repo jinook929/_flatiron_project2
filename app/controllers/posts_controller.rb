@@ -50,7 +50,10 @@ class PostController < AppController
   get '/posts/:id' do
     @post = Post.find_by_id(params[:id])
     @comments = @post.comments.reverse
-    erb :'posts/show'
+    # erb :'posts/show'
+    erb :"posts/show" do 
+      erb :"comments/index"
+    end
   end
 
   get '/posts/:id/edit' do

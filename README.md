@@ -145,36 +145,3 @@ Rakefile
 README.md
 ```
 
-
-
-  <input type="hidden" name="index[]" value="<%= @index %>">
-{"assignment"=>{"title"=>"EC", "content"=>"fjiosfdjs"}, 
-"students"=>{
-  "grade"=>["", "A", "", "A", "", "", "", ""], 
-  "id"=>["2", "4"]}, 
-  "index"=>["0", "1", "2", "3", "4", "5", "6", "7"]
-  }
-
-
-```ruby
-<% @students.each do |student| %>
-  <li><input type='checkbox' name='students[id][]' value='<%= student.id %>' id='<%= student.id %>'><%= student.lname %>, <%= student.fname %></li>
-  <input type="text" name="students[grade][]" id="student_grade">
-<% end %> 
-
-post '/assignments' do
-  indices = []
-  params[:students][grade].each.with_index {|grade, index|
-    indices << index if not grade.empty?
-  }
-
-  @students.each.with_index do |student, index|
-    if indices.include?(index)
-      # do something for student
-    end
-  end
-end
-<%  %>
-  <% if %>
-<% end %>
-```

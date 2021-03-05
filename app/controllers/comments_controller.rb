@@ -11,7 +11,10 @@ class CommentController < AppController
       @post = Post.find_by_id(params[:post_id])
       @comments = @post.comments.reverse
       @comment_id_check = params[:id].to_i
-      erb :'comments/edit'
+      # erb :'comments/edit'
+      erb :"posts/show" do
+        erb :'comments/edit'
+      end
     else
       redirect "/posts/#{params[:post_id]}"
     end

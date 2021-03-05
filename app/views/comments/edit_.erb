@@ -1,0 +1,97 @@
+<h1>hello</h1>
+
+<div class="container mt-5 mb-5 d-flex justify-content-center" style="width: 100vw;">
+
+  <div class="card" style="width: 60vw;">
+    <div class="ratio ratio-16x9 card-img-top">
+      <iframe src="https://www.youtube.com/embed/<%= video_id(@post.youtube) %>?rel=0;&autoplay=1&mute=1" title="YouTube video" allowfullscreen></iframe>
+    </div>
+    <p class="text-center"><a href="<%= @post.youtube %>" target="_blank">If the video does not play, click here.</a></p>
+    <div class="card-body">
+      <div class="d-flex flex-row">
+        <h5 class="card-title"><%= @post.title %></h5>
+        <% if owner?(@post.user) || super? %>
+        <form action="/posts/<%= @post.id %>" method="post" class="ms-auto">
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+        <% end %>
+      </div>
+
+      <div class="d-flex flex-row">
+        <p><em>by <%= @post.user.username %></em></p>
+        <small class="mute ms-auto"><% if @post.created_at == @post.updated_at %>created at <%= @post.created_at %><% else %>edited at <%= @post.updated_at %><% end %></small>
+      </div>
+
+      <hr>
+      <p class="card-text"><%= @post.content %></p>
+      <% if owner?(@post.user) || admin? %>
+      <a href="/posts/<%= @post.id %>/edit">Edit this Vlog</a>
+      <% end %>
+      <div class="float-end">
+        <a href="/posts" class="btn btn-light">Back to List</a>
+      </div>      
+    </div>
+  </div>
+</div>
+
+<div class="container mb-3" style="width: 65vw">
+  <div class="card mb-5">
+    <div class="card-header">
+      Comments
+    </div>
+
+    <div class="card-body">
+
+      <% @comments.each do |comment| %><!--looping-->
+
+      <% if current_user == comment.commenter && @comment_id_check == comment.id || admin? && @comment_id_check == comment.id %><!--editing comment check-->
+
+      <div class="d-flex flex-row gap-2">
+        <form action="/posts/<%= @post.id %>/comments/<%= comment.id %>" method="post" class="form-floating mt-2 mb-0 d-flex flex-row gap-2" style="width: 98%;">
+          <input type="hidden" name="_method" value="patch">
+          <input name="comment[post_id]" type="hidden" value="<%= @post.id %>"/>
+          <input name="comment[commenter_id]" type="hidden" value="<%= comment.commenter.id %>"/>
+          <input name="comment[id]" type="hidden" value="<%= comment.id %>"/>
+          <input type="text" name="comment[content]" class="form-control ml-3 mr-3" id="content" placeholder="your comment" value="<%= comment.content %>" required>
+          <label for="content"><small><em>update your comment?</em></small></label>
+          <button type="submit" class="btn btn-success float-end mt-2 mr-2">Submit</button>
+        </form>
+      </div>
+      <div class="mt-0 mb-3 me-3">
+        <a href="/posts/<%= @post.id %>">Quit Editing</a>
+      </div>
+
+      <% else %><!--editing comment check-->
+
+      <blockquote class="blockquote mb-3">
+        <p class="fs-6"><%= comment.content %></p>
+        <footer class="blockquote-footer fs-6 d-flex flex-row gap-2">
+          <div>
+            <span><%= comment.commenter.username %> <cite title="Source Title"><small>@ <% if comment.created_at == comment.updated_at %><%= comment.created_at %><% else %><%= comment.updated_at %> (edited)<% end %></small></cite></span>
+          </div>
+          <% if current_user == comment.commenter || admin? %><!--button check-->
+          <div>
+            <a href="/posts/<%= @post.id %>/comments/<%= comment.id %>/edit">
+              <button class="badge rounded-pill bg-warning"><small>Edit</small></button>
+            </a>
+          </div>
+          <div>
+            <form action="/posts/<%= @post.id %>/comments/<%= comment.id %>" method="post">
+              <input type="hidden" name="_method" value="delete">
+              <button type="submit" class="badge rounded-pill bg-danger"><small>Delete</small></button>
+            </form>            
+          </div>
+          <% end %><!--button check-->
+        </footer>
+        <% end %>
+      </blockquote><!--editing comment check-->
+
+      <% end %><!--looping-->
+
+    </div>
+
+  </div>
+</div>
+
+<div class="d-flex flex-row"></div>
