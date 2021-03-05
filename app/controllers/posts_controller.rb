@@ -52,7 +52,9 @@ class PostController < AppController
     @comments = @post.comments.reverse
     # erb :'posts/show'
     erb :"posts/show" do 
-      erb :"comments/index"
+      erb :"comments/index" do
+        erb :"comments/new"
+      end
     end
   end
 
