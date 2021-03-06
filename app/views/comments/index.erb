@@ -44,6 +44,12 @@
         </blockquote>
         <% end %><!--#looping-->
 
+        <% if @comments.empty? %><!--#when no comments-->
+          <div class="ms-auto me-auto mt-3 mb-3">
+            <h6 class="mute text-center">Be the first commenter!!!</h6>
+          </div>
+        <% end %><!--#when no comments-->
+
     </div><!--card-body-->
   </div><!--card-->
 </div><!--container-->

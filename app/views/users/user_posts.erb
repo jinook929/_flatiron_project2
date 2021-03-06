@@ -17,7 +17,7 @@
     </h2>
     <div id="collapse<%= post.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= post.id %>" data-bs-parent="#accordionExample">
       <div class="accordion-body text-truncate">
-        <%= post.content %>
+        <a href="/../posts/<%= post.id %>"><%= post.content %></a>
       </div>
       <div class="float-end">
         <a href="/../posts/<%= post.id %>"><button type="button" class="btn btn-link">- Watch Vlog -</button></a>
