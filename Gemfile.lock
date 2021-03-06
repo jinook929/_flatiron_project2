@@ -58,6 +58,7 @@ GEM
       thread_safe (~> 0.1)
 
 PLATFORMS
+  x64-mingw32
   x86_64-linux
 
 DEPENDENCIES

@@ -6,7 +6,7 @@ class PostController < AppController
   get '/posts' do
     if not logged_in?
       flash[:message] = "You have to log in first."
-      redirect "login"
+      redirect "/login"
     else
       @posts = Post.all.sort_by {|post| post.created_at}.reverse
       erb :'posts/index'

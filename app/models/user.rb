@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :posts
-  has_many :comments, foreign_key: "commenter_id"
+  has_many :posts, dependent: :destroy
+  has_many :comments, foreign_key: "commenter_id", dependent: :destroy
   has_many :countries, through: :posts, source: :country
   has_many :commented_posts, through: :comments, source: :post
 
